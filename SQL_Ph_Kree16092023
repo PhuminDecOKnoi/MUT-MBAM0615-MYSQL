@@ -1,0 +1,15 @@
+SELECT * FROM test.employees; -- * ดึงข้อมูลทุกฟิลด์ออกมาแสดง
+SELECT employeeid,TitleOfCourtesy,firstname,lastname,country
+FROM test.employees;
+SELECT employeeid,CONCAT(TitleOfCourtesy," ",firstname," ",lastname),
+country FROM test.employees;
+SELECT productid,productname,categoryid,unitprice,unitsinstock
+FROM test.products WHERE unitprice<20;
+SELECT productid,productname,categoryid,unitprice,unitsinstock
+FROM test.products WHERE unitsinstock=0;
+SELECT productid,productname,categoryid,unitprice,unitsinstock
+FROM test.products WHERE categoryid=1 OR categoryid=8;
+SELECT productid,productname,categoryid,unitprice,unitsinstock
+FROM test.products WHERE categoryid IN (1,5,8);
+SELECT * FROM test.customers WHERE`Country`="UK" OR `Country`="USA";
+SELECT * FROM test.customers WHERE`Country` IN ("UK","USA");
