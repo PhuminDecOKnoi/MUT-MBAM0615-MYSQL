@@ -1,0 +1,2 @@
+-- CREATE TABLE student (studentid CHAR(5), studentname VARCHAR(50));
+CREATE TABLE prarent (prarentid CHAR(5), prarentname VARCHAR(50));
