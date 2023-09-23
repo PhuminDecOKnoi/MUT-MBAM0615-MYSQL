@@ -12,3 +12,5 @@
 -- SELECT * FROM test.customers WHERE `Country`= "USA";
 -- SELECT * FROM test.customers WHERE `Country`= "UK" or `Country`="USA";
 SELECT * FROM test.customers WHERE `Country`IN ("UK","USA");
+--
+--
