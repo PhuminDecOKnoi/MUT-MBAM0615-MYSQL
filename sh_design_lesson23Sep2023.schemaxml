@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">test</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="products" view="colnames">
+<left>263</left>
+<top>205</top>
+<width>135</width>
+<height>248</height>
+<sql_create_table>CREATE TABLE `products` (
+  `ProductID` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Number automatically assigned to new product.',
+  `ProductName` varchar(40) DEFAULT NULL,
+  `SupplierID` int(10) DEFAULT NULL COMMENT 'Same entry as in Suppliers table.',
+  `CategoryID` int(10) DEFAULT NULL COMMENT 'Same entry as in Categories table.',
+  `QuantityPerUnit` varchar(20) DEFAULT NULL COMMENT '(e.g., 24-count case, 1-liter bottle).',
+  `UnitPrice` decimal(19,4) DEFAULT NULL,
+  `UnitsInStock` smallint(5) DEFAULT NULL,
+  `UnitsOnOrder` smallint(5) DEFAULT NULL,
+  `ReorderLevel` smallint(5) DEFAULT NULL COMMENT 'Minimum units to maintain in stock.',
+  `Discontinued` bit(1) NOT NULL COMMENT 'Yes means item is no longer available.',
+  PRIMARY KEY (`ProductID`),
+  KEY `CategoriesProducts` (`CategoryID`),
+  KEY `CategoryID` (`CategoryID`),
+  KEY `ProductName` (`ProductName`),
+  KEY `SupplierID` (`SupplierID`),
+  KEY `SuppliersProducts` (`SupplierID`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="categories" view="colnames">
+<left>53</left>
+<top>49</top>
+<width>132</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `categories` (
+  `CategoryID` int(10) NOT NULL COMMENT 'Number automatically assigned to a new category.',
+  `CategoryName` varchar(15) NOT NULL DEFAULT '' COMMENT 'Name of food category.',
+  `Description` longtext DEFAULT NULL,
+  `Picture` longblob DEFAULT NULL COMMENT 'A picture representing the food category.',
+  PRIMARY KEY (`CategoryName`),
+  UNIQUE KEY `PrimaryKey` (`CategoryID`),
+  CONSTRAINT `FK_categories` FOREIGN KEY (`CategoryID`) REFERENCES `products` (`CategoryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="suppliers" view="colnames">
+<left>871</left>
+<top>46</top>
+<width>134</width>
+<height>282</height>
+<sql_create_table>CREATE TABLE `suppliers` (
+  `SupplierID` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Number automatically assigned to new supplier.',
+  `CompanyName` varchar(40) DEFAULT NULL,
+  `ContactName` varchar(30) DEFAULT NULL,
+  `ContactTitle` varchar(30) DEFAULT NULL,
+  `Address` varchar(60) DEFAULT NULL COMMENT 'Street or post-office box.',
+  `City` varchar(15) DEFAULT NULL,
+  `Region` varchar(15) DEFAULT NULL COMMENT 'State or province.',
+  `PostalCode` varchar(10) DEFAULT NULL,
+  `Country` varchar(15) DEFAULT NULL,
+  `Phone` varchar(24) DEFAULT NULL COMMENT 'Phone number includes country code or area code.',
+  `Fax` varchar(24) DEFAULT NULL COMMENT 'Phone number includes country code or area code.',
+  `HomePage` longtext DEFAULT NULL COMMENT 'Supplier''s home page on World Wide Web.',
+  PRIMARY KEY (`SupplierID`),
+  KEY `CompanyName` (`CompanyName`),
+  KEY `PostalCode` (`PostalCode`),
+  CONSTRAINT `FK_suppliers` FOREIGN KEY (`SupplierID`) REFERENCES `products` (`SupplierID`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="orderdetails" view="colnames">
+<left>530</left>
+<top>32</top>
+<width>103</width>
+<height>184</height>
+<sql_create_table>CREATE TABLE `orderdetails` (
+  `OrderID` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Same as Order ID in Orders table.',
+  `ProductID` int(10) NOT NULL DEFAULT 0 COMMENT 'Same as Product ID in Products table.',
+  `UnitPrice` decimal(19,4) DEFAULT NULL,
+  `Quantity` smallint(5) DEFAULT NULL,
+  `Discount` float(24,0) DEFAULT NULL,
+  PRIMARY KEY (`OrderID`,`ProductID`),
+  KEY `OrderID` (`OrderID`),
+  KEY `OrdersOrder Details` (`OrderID`),
+  KEY `ProductID` (`ProductID`),
+  KEY `ProductsOrder Details` (`ProductID`),
+  CONSTRAINT `FK_orderdetails` FOREIGN KEY (`ProductID`) REFERENCES `products` (`ProductID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11078 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="employees" view="colnames">
+<left>861</left>
+<top>339</top>
+<width>199</width>
+<height>311</height>
+<sql_create_table>CREATE TABLE `employees` (
+  `EmployeeID` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Number automatically assigned to new employee.',
+  `LastName` varchar(20) DEFAULT NULL,
+  `FirstName` varchar(10) DEFAULT NULL,
+  `Title` varchar(30) DEFAULT NULL COMMENT 'Employee''s title.',
+  `TitleOfCourtesy` varchar(25) DEFAULT NULL COMMENT 'Title used in salutations.',
+  `BirthDate` datetime DEFAULT NULL,
+  `HireDate` datetime DEFAULT NULL,
+  `Address` varchar(60) DEFAULT NULL COMMENT 'Street or post-office box.',
+  `City` varchar(15) DEFAULT NULL,
+  `Region` varchar(15) DEFAULT NULL COMMENT 'State or province.',
+  `PostalCode` varchar(10) DEFAULT NULL,
+  `Country` varchar(15) DEFAULT NULL,
+  `HomePhone` varchar(24) DEFAULT NULL COMMENT 'Phone number includes country code or area code.',
+  `Extension` varchar(4) DEFAULT NULL COMMENT 'Internal telephone extension number.',
+  `Photo` varchar(255) DEFAULT NULL COMMENT 'Picture of employee.',
+  `Notes` longtext DEFAULT NULL COMMENT 'General information about employee''s background.',
+  `ReportsTo` int(10) DEFAULT NULL COMMENT 'Employee''s supervisor.',
+  PRIMARY KEY (`EmployeeID`),
+  KEY `LastName` (`LastName`),
+  KEY `PostalCode` (`PostalCode`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="customers" view="colnames">
+<left>261</left>
+<top>470</top>
+<width>134</width>
+<height>265</height>
+<sql_create_table>CREATE TABLE `customers` (
+  `CustomerID` varchar(5) NOT NULL DEFAULT '' COMMENT 'Unique five-character code based on customer name.',
+  `CompanyName` varchar(40) DEFAULT NULL,
+  `ContactName` varchar(30) DEFAULT NULL,
+  `ContactTitle` varchar(30) DEFAULT NULL,
+  `Address` varchar(60) DEFAULT NULL COMMENT 'Street or post-office box.',
+  `City` varchar(15) DEFAULT NULL,
+  `Region` varchar(15) DEFAULT NULL COMMENT 'State or province.',
+  `PostalCode` varchar(10) DEFAULT NULL,
+  `Country` varchar(15) DEFAULT NULL,
+  `Phone` varchar(24) DEFAULT NULL COMMENT 'Phone number includes country code or area code.',
+  `Fax` varchar(24) DEFAULT NULL COMMENT 'Phone number includes country code or area code.',
+  PRIMARY KEY (`CustomerID`),
+  KEY `City` (`City`),
+  KEY `CompanyName` (`CompanyName`),
+  KEY `PostalCode` (`PostalCode`),
+  KEY `Region` (`Region`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="orders" view="colnames">
+<left>565</left>
+<top>412</top>
+<width>135</width>
+<height>311</height>
+<sql_create_table>CREATE TABLE `orders` (
+  `OrderID` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Unique order number.',
+  `CustomerID` varchar(5) DEFAULT NULL COMMENT 'Same entry as in Customers table.',
+  `EmployeeID` int(10) DEFAULT NULL COMMENT 'Same entry as in Employees table.',
+  `OrderDate` datetime DEFAULT NULL,
+  `RequiredDate` datetime DEFAULT NULL,
+  `ShippedDate` datetime DEFAULT NULL,
+  `ShipVia` int(10) DEFAULT NULL COMMENT 'Same as Shipper ID in Shippers table.',
+  `Freight` decimal(19,4) DEFAULT NULL,
+  `ShipName` varchar(40) DEFAULT NULL COMMENT 'Name of person or company to receive the shipment.',
+  `ShipAddress` varchar(60) DEFAULT NULL COMMENT 'Street address only -- no post-office box allowed.',
+  `ShipCity` varchar(15) DEFAULT NULL,
+  `ShipRegion` varchar(15) DEFAULT NULL COMMENT 'State or province.',
+  `ShipPostalCode` varchar(10) DEFAULT NULL,
+  `ShipCountry` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`OrderID`),
+  KEY `CustomerID` (`CustomerID`),
+  KEY `CustomersOrders` (`CustomerID`),
+  KEY `EmployeeID` (`EmployeeID`),
+  KEY `EmployeesOrders` (`EmployeeID`),
+  KEY `OrderDate` (`OrderDate`),
+  KEY `ShippedDate` (`ShippedDate`),
+  KEY `ShippersOrders` (`ShipVia`),
+  KEY `ShipPostalCode` (`ShipPostalCode`),
+  CONSTRAINT `FK_Customers` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`),
+  CONSTRAINT `FK_employees` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11078 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
