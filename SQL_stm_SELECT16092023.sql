@@ -11,4 +11,4 @@
 -- SELECT productid, productname, categoryid, unitprice, unitsinstock FROM test.products WHERE categoryid IN (1,5,8);
 -- SELECT * FROM test.customers WHERE `Country`= "USA";
 -- SELECT * FROM test.customers WHERE `Country`= "UK" or `Country`="USA";
-SELECT * FROM test.customers WHERE `Country`IN ("UK","USA");
+-- SELECT * FROM test.customers WHERE `Country`IN ("UK","USA");
