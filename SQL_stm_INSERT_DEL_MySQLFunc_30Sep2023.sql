@@ -58,3 +58,13 @@ FROM test.orderdetails,test.products, test.orders
 WHERE test.orderdetails.`ProductID` = test.products.`ProductID`
 AND MONTH(orderdate)=10 AND YEAR(orderdate)=1996
 GROUP BY test.orderdetails.`ProductID`;
+-- แบบฝึกหัด
+SELECT Orders.EmployeeID AS รหัสพนักงาน ,
+Employees.FirstName AS ชื่อ,
+Employees.LastName AS นามสกุล ,
+Employees.Title AS ตำแหน่งงาน,
+SUM(Orderdetails.UnitPrice*Orderdetails.Quantity) AS ยอดขาย,
+COUNT(Orders.CustomerID) AS จำนวนลูกค้า
+FROM test.orders,test.employees,test.orderdetails
+WHERE test.orders.employeeID = test.employees.employeeID
+GROUP BY test.orders.employeeID;
