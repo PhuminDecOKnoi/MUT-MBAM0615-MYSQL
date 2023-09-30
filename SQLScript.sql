@@ -1,1 +1,1 @@
-SELECT * FROM test.products
+SELECT * FROM test.orderdetails
