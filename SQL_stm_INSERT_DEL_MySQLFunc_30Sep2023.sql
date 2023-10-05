@@ -46,7 +46,7 @@ GROUP BY test.products.`CategoryID`;  -- GROUP BY ออกข้อสอบป
 SELECT `CategoryName`,SUM(`UnitPrice`*`UnitsInStock`) AS _SUM_OF_PRICE FROM test.products, test.categories
 WHERE test.products.`CategoryID` = test.categories.`CategoryID`
 GROUP BY test.products.`CategoryID`;  -- GROUP BY ออกข้อสอบปลายภาค
---- แบบฝึกหัด
+--- แบบฝึกหัด 1
 SELECT SUM(`UnitPrice`*`Quantity`) AS GOD_SALE FROM test.orderdetails;
 SELECT `ProductName` AS สินค้า,(test.orderdetails.`UnitPrice`*`Quantity`) AS ราคาขายแยกสินค้า
 FROM test.orderdetails,test.products 
@@ -58,13 +58,15 @@ FROM test.orderdetails,test.products, test.orders
 WHERE test.orderdetails.`ProductID` = test.products.`ProductID`
 AND MONTH(orderdate)=10 AND YEAR(orderdate)=1996
 GROUP BY test.orderdetails.`ProductID`;
--- แบบฝึกหัด
-SELECT Orders.EmployeeID AS รหัสพนักงาน ,
-Employees.FirstName AS ชื่อ,
-Employees.LastName AS นามสกุล ,
-Employees.Title AS ตำแหน่งงาน,
-SUM(Orderdetails.UnitPrice*Orderdetails.Quantity) AS ยอดขาย,
-COUNT(Orders.CustomerID) AS จำนวนลูกค้า
+-- แบบฝึกหัด 2 แถมให้ครับ
+SELECT Orders.`EmployeeID` AS รหัสพนักงาน ,
+    Employees.`FirstName` AS ชื่อ,
+    Employees.`LastName` AS นามสกุล ,
+    Employees.`Title` AS ตำแหน่งงาน,
+    SUM(Orderdetails.`UnitPrice`*Orderdetails.`Quantity`) AS ยอดขาย,
+    COUNT(Orders.`CustomerID`) AS จำนวนลูกค้า
 FROM test.orders,test.employees,test.orderdetails
-WHERE test.orders.employeeID = test.employees.employeeID
-GROUP BY test.orders.employeeID;
+WHERE test.orders.`employeeID` = test.employees.`employeeID`
+GROUP BY test.orders.employeeID
+ORDER BY ยอดขาย DESC; -- เรียงตามยอดขาย
+-- ORDER BY จำนวนลูกค้า DESC; -- เรียงตามจำนวนลูกค้า
