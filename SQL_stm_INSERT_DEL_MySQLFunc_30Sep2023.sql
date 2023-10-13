@@ -116,4 +116,3 @@ GROUP BY orders.`OrderID`
 -- ORDER BY orders.`OrderID` DESC;
 -- ORDER BY customers.`CustomerID`ASC;
 ORDER BY ยอดซื้อ DESC;
-
