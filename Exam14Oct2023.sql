@@ -37,14 +37,9 @@ GROUP BY Saleman, Orders.EmployeeID;
 SELECT
     CONCAT(e.FirstName, ' ', e.LastName) AS Salesman,
     SUM(od.Quantity * od.UnitPrice * (1 - od.Discount)) AS Total
-FROM
-    employees e
-JOIN
-    orders o ON e.EmployeeID = o.EmployeeID
-JOIN
-    orderdetails od ON o.OrderID = od.OrderID
-WHERE
-    MONTH(o.OrderDate) = 8 AND YEAR(o.OrderDate) = 1996
-GROUP BY
-    e.EmployeeID, Salesman
+FROM employees e
+JOIN orders o ON e.EmployeeID = o.EmployeeID
+JOIN orderdetails od ON o.OrderID = od.OrderID
+WHERE MONTH(o.OrderDate) = 8 AND YEAR(o.OrderDate) = 1996
+GROUP BY e.EmployeeID, Salesman
 ORDER BY Salesman ASC;
